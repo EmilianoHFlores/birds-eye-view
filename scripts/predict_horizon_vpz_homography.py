@@ -19,6 +19,9 @@ import tensorflow as tf
 # Main slim library
 from tensorflow.contrib import slim
 
+import sys
+sys.path.append(os.getcwd())
+
 from nets import vgg
 from nets import inception_v4
 from utils.transformations import rotation_matrix
@@ -521,6 +524,9 @@ def main(_):
     os.makedirs("output/", exist_ok=True)
     txt_file = 'output/' + img_path[img_path.rfind('/') + 1:img_path.rfind(
         '.')] + '_homography_matrix_' + FLAGS.model_name + '.txt'
+    img_file = 'output/' + img_path[img_path.rfind('/') + 1:img_path.rfind(
+        '.')] + '_warped_' + FLAGS.model_name + '.png'
+    plt.savefig(img_file)
     np.savetxt(txt_file, scaled_overhead_hmatrix)
     print("Homography matrix saved to the text file:", txt_file)
     print("------------------------------------------------")
